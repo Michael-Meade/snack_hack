@@ -20,7 +20,6 @@ class Reports
         File.open(filename, "w") { |file| file.write(content) }
     end
     def save_json
-        p content.class
         j = JSON.pretty_generate(content)
         File.open(filename, "w") { |file| file.write(j) }
     end
