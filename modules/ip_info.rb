@@ -9,7 +9,6 @@ module SnackHack
                 ress = dns.getresources domain, Resolv::DNS::Resource::IN::A
                 puts ress.map(&:address)
             end
-            puts ips
         end
         def self.run(domain)
             ip = get_address(domain)
