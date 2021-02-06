@@ -14,10 +14,12 @@ module SnackHack
                 # ngix has 
                 if server.match("nginx")
                     h["sever"]   = "Nginx"
-                    rsp     = Excon.get(File.join( url, "server-status"))
+                    rsp     = Excon.get(File.join( url, "nginx_status"))
                     # if the pages gives a status of NOT 400
                     if rsp[:status].to_i != 400
-                        puts
+                        h["service-page"] = true
+                    else
+                        h["server-page"]  = false
                     end
                 elsif server.match("Apache")
                     h["server"]       = "Apache"
@@ -30,7 +32,6 @@ module SnackHack
                     end
                 end
             end
-            p url
             Reports.new(url, h, "http_info.json" ).save_json
         end
     end
