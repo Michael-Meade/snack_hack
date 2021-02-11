@@ -16,8 +16,8 @@ class Reports
     def content
         @content
     end
-    def save_txt
-        File.open(filename, "w") { |file| file.write(content) }
+    def save_txt(method = "w")
+        File.open(filename, method) { |file| file.write(content) }
     end
     def save_json
         j = JSON.pretty_generate(content)

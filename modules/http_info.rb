@@ -12,10 +12,10 @@ module SnackHack
             # makes sure it has a key with the name server
             if content.has_key?('server')
                 server = content[:server]
-                # ngix has 
+                # nginx
                 if server.match("nginx")
                     h["sever"]   = "Nginx"
-                    rsp     = Excon.get(File.join( url, "nginx_status-"))
+                    rsp          = Excon.get(File.join( url, "nginx_status"))
                     # if the pages gives a status of NOT 400
                     if rsp[:status].to_i != 400
                         h["service-page"] = true
@@ -24,7 +24,7 @@ module SnackHack
                     end
                 elsif server.match("Apache")
                     h["server"]       = "Apache"
-                    rsp     = Excon.get(File.join( url, "server-status"))
+                    rsp               = Excon.get(File.join( url, "server-status"))
                     # if the pages gives a status of NOT 400
                     if rsp[:status].to_i != 400
                         h["service-page"] = true

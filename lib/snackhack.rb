@@ -6,7 +6,7 @@ module Bot
         #Dir[File.expand_path "lib/**/*.rb"].each{|f| require_relative(f)}
         Dir["modules/#{path}/*.rb"].each { |file| load file }
         new_module.constants.each do |mod|
-         new_module.const_get(mod)
+            new_module.const_get(mod)
         end
     end
     load_modules(:SnackHack, 'events')
