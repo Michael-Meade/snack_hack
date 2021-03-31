@@ -1,14 +1,9 @@
 require 'excon'
+require './lib/utils'
 module SnackHack
     module DefaultPages
         def self.scanning_file
             File.join("lists", "default_status.txt")
-        end
-        def self.calc_score(score)
-            # The total amount of lines
-            total = File.foreach(self.scanning_file).inject(0) {|c, line| c+1}
-            final_score = total.to_i / score.to_i
-            puts "Score is: #{final_score.to_s}"
         end
         def self.run(url)
             score = 0
@@ -22,7 +17,7 @@ module SnackHack
                     Reports.new(url, path, "default_status_pages.txt" ).save_txt
                 end
             end
-        calc_score(score)
+        Scoring.new(score, File.join("lists", "default_status.txt")).calc
         end
     end
 end
