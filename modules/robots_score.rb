@@ -21,8 +21,18 @@ module SnackHack
                     end
                 end
             end
-        # saves the results into the file named robots_score.txt
-        Reports.new(url, results.join("\n"), "robots_score.txt").save_txt
+            # saves the results into the file named robots_score.txt
+            Reports.new(url, results.join("\n"), "robots_score.txt").save_txt
+            score = 0
+            new_url = url.to_s.gsub("https://", "").gsub("http://", "")
+            File.readlines(File.join("reports", new_url, "robots_score.txt")).each do |l|
+                l = l.strip
+                response = Excon.get(File.join(url, l))
+                if response.status.to_i == 200
+                    score+=1
+                end
+            end
+            Scoring.new(score, File.join("reports", new_url, "robots_score.txt")).calc
         end
     end
 end
